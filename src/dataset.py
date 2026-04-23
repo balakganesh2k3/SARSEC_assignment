@@ -10,11 +10,12 @@ class SASRecDataset(Dataset):
         self.num_items = num_items
         self.samples = []
 
-        # We built training samples from user interaction sequences
+        # One sample per user (matches reference repo kang205/SASRec).
+        # Using all N-1 prefix lengths per user creates ~100x more samples
+        # with no measurable benefit — just much slower training.
         for user, seq in train_data.items():
-            h = set(seq)  
-            for i in range(1, len(seq)):
-                self.samples.append((h, seq[:i + 1]))
+            if len(seq) > 1:                 # need at least input + one target
+                self.samples.append((set(seq), seq))
 
     def __len__(self):
         return len(self.samples)
