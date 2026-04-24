@@ -13,8 +13,8 @@ from evaluate import evaluate
 from interface import MAX_LENGTH
 
 
-def train_model(model, train_loader, val_data, num_items, epochs=100,
-                lr=0.001, patience=10, checkpoint_path="best_model.pt",
+def train_model(model, train_loader, val_data, num_items, epochs=200,
+                lr=0.001, patience=5, checkpoint_path="checkpoints/best_model.pt",
                 device=None) -> dict:
 
     # ------------------------------------------------------------------ #
