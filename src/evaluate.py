@@ -1,8 +1,6 @@
-import random
 import numpy as np
 import torch
-from interface import TOKEN_PADDING, MAX_LENGTH, NEG_SAMPLE_SIZE
-from sampler import negative_sample
+from interface import TOKEN_PADDING, MAX_LENGTH
 
 
 # ---------------------------------------------------------------------------
@@ -25,27 +23,31 @@ def _prepare_sequence(seq_list):
     Returns:
         torch.LongTensor of shape [1, MAX_LENGTH]
     """
-    seq = seq_list[-MAX_LENGTH:]                    # truncate: keep last MAX_LENGTH items
+    seq = seq_list[-MAX_LENGTH:]            # truncate: keep last MAX_LENGTH items
     pad_len = MAX_LENGTH - len(seq)
-    seq = [TOKEN_PADDING] * pad_len + seq           # left-pad with 0
-    return torch.LongTensor(seq).unsqueeze(0)       # [1, MAX_LENGTH]
+    seq = [TOKEN_PADDING] * pad_len + seq   # left-pad with 0
+    return torch.LongTensor(seq).unsqueeze(0)   # [1, MAX_LENGTH]
 
 
-def _rank_of_target(scores):
+def _rank_of_target(scores, target_idx):
     """
-    Compute the 0-indexed rank of the target item among all candidates.
+    Compute the 0-indexed rank of the target item in the full item score list.
 
-    Convention: the target item is always placed at index 0 of the candidate
-    list (and therefore at scores[0]).  Rank = number of candidates that
-    received a strictly higher score than the target.
+    In full ranking, scores cover ALL items (indices 0 to num_items-1,
+    corresponding to item IDs 1 to num_items). The target item sits at
+    target_idx = target_id - 1.
+
+    Rank = number of items that scored strictly higher than the target.
+    Rank 0 means the target is the top-1 prediction.
 
     Args:
-        scores : 1-D FloatTensor of length (1 + NEG_SAMPLE_SIZE)
+        scores     : 1-D FloatTensor of length num_items
+        target_idx : int — index of the target item in the scores tensor
 
     Returns:
-        int — 0-indexed rank of the target (0 = best possible)
+        int — 0-indexed rank of the target
     """
-    target_score = scores[0]
+    target_score = scores[target_idx]
     rank = int((scores > target_score).sum().item())
     return rank
 
@@ -54,18 +56,21 @@ def _rank_of_target(scores):
 # Public API
 # ---------------------------------------------------------------------------
 
-def evaluate(model, data, num_items, K=[10, 20], max_users=10_000, device=None):
+def evaluate(model, data, num_items, K=[10, 20], device=None):
     """
-    Evaluate SASRec with the standard 1-positive + 100-negative protocol.
+    Evaluate SASRec using FULL RANKING — scores all items, not just 101
+    candidates. This is the protocol specified in the assignment instructions.
 
-    Protocol (matches reference repo kang205/SASRec and PRD §4):
-    - For each user, score 1 held-out target item together with NEG_SAMPLE_SIZE
-      (= 100) randomly sampled negative items that are NOT in the user's observed
-      history for this split.
-    - Rank the target among all 101 candidates.
+    Protocol
+    --------
+    - For each user, use the sequence prefix to produce a score for every
+      item in the vocabulary (IDs 1 … num_items).
+    - Rank the held-out target item among all num_items items.
+    - Items in the user's training history are NOT excluded from ranking
+      (standard full-ranking protocol for sequential recommendation).
     - Report Recall@K and NDCG@K for K ∈ {10, 20}.
 
-    NDCG formula (PRD-specified, matches reference repo):
+    NDCG formula (matches reference repo kang205/SASRec):
         NDCG@K = 1 / log2(rank + 2)  if rank < K,  else 0
     where rank is 0-indexed (rank 0 → target is the top-1 prediction).
 
@@ -73,38 +78,31 @@ def evaluate(model, data, num_items, K=[10, 20], max_users=10_000, device=None):
     --------------------
     data : dict  { user_id : (seq_list, target_item) }
         seq_list    — list[int], the sequence prefix used to predict target_item.
-                      For val  : s[:-2]  (train sequence)
-                      For test : s[:-1]  (train + val item)
-        target_item — int, the held-out next item.
+                      For val  : s[:-2]  (training sequence)
+                      For test : s[:-1]  (training + val item)
+        target_item — int, the held-out next item (1-indexed item ID).
 
     Args:
         model     : SASRec — must already be in eval mode before calling.
         data      : dict as described above.
         num_items : int — total vocabulary size (highest valid item ID).
         K         : list[int] — cut-off values, default [10, 20].
-        max_users : int — cap on evaluated users for speed; if len(data) > max_users,
-                    a random subset of max_users is drawn (matches reference repo).
         device    : torch.device or None — inferred from model parameters if None.
 
     Returns:
-        (ndcg10, ndcg20, recall10, recall20) — floats, averaged over evaluated users.
+        (ndcg10, ndcg20, recall10, recall20) — floats, averaged over all users.
     """
     if device is None:
         try:
             device = next(model.parameters()).device
         except StopIteration:
-            # Model has no registered parameters (e.g. a test stub) — fall back to CPU
             device = torch.device("cpu")
 
-    # ------------------------------------------------------------------ #
-    # 1.  User sampling                                                    #
-    # ------------------------------------------------------------------ #
-    users = list(data.keys())
-    if len(users) > max_users:
-        users = random.sample(users, max_users)
+    # All item IDs: 1 … num_items, mapped to tensor indices 0 … num_items-1
+    all_items = torch.arange(1, num_items + 1, device=device)   # [num_items]
 
     # ------------------------------------------------------------------ #
-    # 2.  Metric accumulators                                              #
+    # Metric accumulators                                                  #
     # ------------------------------------------------------------------ #
     ndcg_acc   = {k: 0.0 for k in K}
     recall_acc = {k: 0.0 for k in K}
@@ -112,60 +110,44 @@ def evaluate(model, data, num_items, K=[10, 20], max_users=10_000, device=None):
 
     model.eval()
     with torch.no_grad():
-        for u in users:
-            seq_list, target = data[u]
+        for u, (seq_list, target) in data.items():
+
+            # Skip users with empty training sequences
+            if len(seq_list) == 0:
+                continue
 
             # ----------------------------------------------------------
-            # 2a.  Build exclude set for negative sampling.
-            #      Excludes every item the user has already seen in this
-            #      split's sequence prefix, plus the target itself.
-            #      This prevents any known positive from appearing as a
-            #      negative candidate.
+            # Prepare input sequence tensor: [1, MAX_LENGTH]
             # ----------------------------------------------------------
-            exclude = set(seq_list) | {target}
+            seq_tensor = _prepare_sequence(seq_list).to(device)
 
             # ----------------------------------------------------------
-            # 2b.  Sample NEG_SAMPLE_SIZE distinct negatives.
-            #      Each sampled item is immediately added to exclude so
-            #      the same item cannot be drawn twice.
+            # Score ALL items in one forward pass.
+            # model.predict() returns shape [1, num_items].
+            # Squeeze to [num_items].
             # ----------------------------------------------------------
-            negatives = []
-            for _ in range(NEG_SAMPLE_SIZE):
-                neg = negative_sample(exclude, num_items)
-                negatives.append(neg)
-                exclude.add(neg)    # deduplicate within this user's sample
+            scores = model.predict(seq_tensor, all_items)   # [1, num_items]
+            scores = scores.squeeze(0)                       # [num_items]
 
             # ----------------------------------------------------------
-            # 2c.  Build candidate list: target at index 0, negatives after.
-            #      Keeping target at a fixed index makes rank computation
-            #      straightforward and deterministic.
+            # Target item ID is 1-indexed; tensor index is (target - 1).
             # ----------------------------------------------------------
-            candidates = [target] + negatives      # length = 101
+            target_idx = target - 1
+            rank = _rank_of_target(scores, target_idx)      # 0-indexed
 
             # ----------------------------------------------------------
-            # 2d.  Prepare tensors and run model.predict().
+            # Accumulate Recall@K and NDCG@K
             # ----------------------------------------------------------
-            seq_tensor   = _prepare_sequence(seq_list).to(device)      # [1, MAX_LENGTH]
-            item_tensor  = torch.LongTensor(candidates).to(device)     # [101]
-
-            scores = model.predict(seq_tensor, item_tensor)            # [1, 101]
-            scores = scores.squeeze(0)                                  # [101]
-
-            # ----------------------------------------------------------
-            # 2e.  Rank target and accumulate metrics.
-            # ----------------------------------------------------------
-            rank = _rank_of_target(scores)          # 0-indexed
-
             for k in K:
                 if rank < k:
                     recall_acc[k] += 1.0
-                    # PRD formula: 1/log2(rank+2)   (rank=0 → 1/log2(2) = 1.0)
+                    # NDCG formula: 1/log2(rank+2); rank=0 → 1/log2(2) = 1.0
                     ndcg_acc[k]   += 1.0 / np.log2(rank + 2)
 
             num_evaluated += 1
 
     # ------------------------------------------------------------------ #
-    # 3.  Average and return                                               #
+    # Average over all evaluated users                                     #
     # ------------------------------------------------------------------ #
     ndcg10   = ndcg_acc[10]   / num_evaluated
     ndcg20   = ndcg_acc[20]   / num_evaluated
