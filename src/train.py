@@ -36,6 +36,14 @@ def train_model(model, train_loader, val_data, num_items, epochs=200,
         print(f"  GPU : {torch.cuda.get_device_name(0)}")
         print(f"  VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
+    # ------------------------------------------------------------------ #
+    # Create checkpoint directory if needed                               #
+    # ------------------------------------------------------------------ #
+    checkpoint_dir = os.path.dirname(checkpoint_path)
+    if checkpoint_dir and not os.path.exists(checkpoint_dir):
+        os.makedirs(checkpoint_dir, exist_ok=True)
+        print(f"Created checkpoint directory: {checkpoint_dir}")
+
     model = model.to(device)
     optimizer = Adam(model.parameters(), lr=lr, betas=(0.9, 0.98))
     # Warmup for first 10 epochs, then cosine decay — required by PRD
