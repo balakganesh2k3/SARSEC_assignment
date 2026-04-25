@@ -14,7 +14,7 @@ from interface import MAX_LENGTH
 
 
 def train_model(model, train_loader, val_data, num_items, epochs=200,
-                lr=0.001, patience=5, checkpoint_path="checkpoints/best_model.pt",
+                lr=0.001, patience=5, checkpoint_path="checkpoints/best_model2.pt",
                 device=None) -> dict:
 
     # ------------------------------------------------------------------ #
@@ -218,7 +218,7 @@ if __name__ == "__main__":
         num_items=data["num_items"],
         hidden_size=50,
         head_nums=1,
-        block_nums=2,       # PRD default for ml-1m
+        block_nums=1,       # PRD default for ml-1m
         maxlen=MAX_LENGTH,  # 200, defined in interface.py
         dropout_rate=0.2    # PRD default for ml-1m
     )
