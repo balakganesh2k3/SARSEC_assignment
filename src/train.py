@@ -14,7 +14,7 @@ from interface import MAX_LENGTH
 
 
 def train_model(model, train_loader, val_data, num_items, epochs=200,
-                lr=0.001, patience=5, checkpoint_path="checkpoints/best_model2.pt",
+                lr=0.001, patience=5, checkpoint_path="checkpoints/best_model.pt",
                 device=None) -> dict:
 
     # ------------------------------------------------------------------ #
@@ -27,14 +27,20 @@ def train_model(model, train_loader, val_data, num_items, epochs=200,
             "cpu"
         )
     device = torch.device(device)
-    print(f"Training on: {device}")
+    log(f"Training on: {device}")
+    
+    log_file = open("Training_on_cuda.txt", "a")
 
+    def log(msg):
+        log(msg)
+        log_file.write(msg + "\n")
+        log_file.flush()
     # cuDNN auto-tuner: finds the fastest convolution algorithm for your
     # exact input sizes. Free speed-up on GPU with no code changes needed.
     if device.type == "cuda":
         cudnn.benchmark = True
-        print(f"  GPU : {torch.cuda.get_device_name(0)}")
-        print(f"  VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
+        log(f"  GPU : {torch.cuda.get_device_name(0)}")
+        log(f"  VRAM: {torch.cuda.get_device_properties(0).total_memory / 1e9:.1f} GB")
 
     # ------------------------------------------------------------------ #
     # Create checkpoint directory if needed                               #
@@ -42,7 +48,7 @@ def train_model(model, train_loader, val_data, num_items, epochs=200,
     checkpoint_dir = os.path.dirname(checkpoint_path)
     if checkpoint_dir and not os.path.exists(checkpoint_dir):
         os.makedirs(checkpoint_dir, exist_ok=True)
-        print(f"Created checkpoint directory: {checkpoint_dir}")
+        log(f"Created checkpoint directory: {checkpoint_dir}")
 
     model = model.to(device)
     optimizer = Adam(model.parameters(), lr=lr, betas=(0.9, 0.98))
@@ -70,38 +76,38 @@ def train_model(model, train_loader, val_data, num_items, epochs=200,
     total_params    = sum(p.numel() for p in model.parameters())
     trainable_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
 
-    print("\n" + "=" * 60)
-    print("  TRAINING CONFIGURATION")
-    print("=" * 60)
-    print(f"  Device          : {device}" +
+    log("\n" + "=" * 60)
+    log("  TRAINING CONFIGURATION")
+    log("=" * 60)
+    log(f"  Device          : {device}" +
           (f" ({torch.cuda.get_device_name(0)})" if device.type == "cuda" else ""))
     if device.type == "cuda":
         vram = torch.cuda.get_device_properties(0).total_memory / 1e9
-        print(f"  VRAM            : {vram:.1f} GB")
+        log(f"  VRAM            : {vram:.1f} GB")
     amp_status = "Enabled (float16)" if device.type == "cuda" else "Disabled (CPU/MPS)"
-    print(f"  AMP (mixed prec): {amp_status}")
-    print("-" * 60)
-    print("  MODEL")
-    print(f"  Architecture    : SASRec")
-    print(f"  Num items       : {model.num_items:,}")
-    print(f"  Hidden size     : {model.hidden_size}")
-    print(f"  Attention heads : {model.head_nums}")
-    print(f"  Transformer blks: {model.block_nums}")
-    print(f"  Max seq length  : {model.maxlen}")
-    print(f"  Dropout rate    : {model.dropout_rate}")
-    print(f"  Total params    : {total_params:,}")
-    print(f"  Trainable params: {trainable_params:,}")
-    print("-" * 60)
-    print("  TRAINING")
-    print(f"  Epochs          : {epochs}")
-    print(f"  Learning rate   : {lr}")
-    print(f"  Optimizer       : Adam (β1=0.9, β2=0.98)")
-    print(f"  Scheduler       : Warmup({warmup_epochs} ep) + CosineAnnealingLR")
-    print(f"  Batch size      : {train_loader.batch_size}")
-    print(f"  Train batches   : {len(train_loader)}")
-    print(f"  Early stopping  : patience={patience}")
-    print(f"  Checkpoint path : {checkpoint_path}")
-    print("=" * 60 + "\n")
+    log(f"  AMP (mixed prec): {amp_status}")
+    log("-" * 60)
+    log("  MODEL")
+    log(f"  Architecture    : SASRec")
+    log(f"  Num items       : {model.num_items:,}")
+    log(f"  Hidden size     : {model.hidden_size}")
+    log(f"  Attention heads : {model.head_nums}")
+    log(f"  Transformer blks: {model.block_nums}")
+    log(f"  Max seq length  : {model.maxlen}")
+    log(f"  Dropout rate    : {model.dropout_rate}")
+    log(f"  Total params    : {total_params:,}")
+    log(f"  Trainable params: {trainable_params:,}")
+    log("-" * 60)
+    log("  TRAINING")
+    log(f"  Epochs          : {epochs}")
+    log(f"  Learning rate   : {lr}")
+    log(f"  Optimizer       : Adam (β1=0.9, β2=0.98)")
+    log(f"  Scheduler       : Warmup({warmup_epochs} ep) + CosineAnnealingLR")
+    log(f"  Batch size      : {train_loader.batch_size}")
+    log(f"  Train batches   : {len(train_loader)}")
+    log(f"  Early stopping  : patience={patience}")
+    log(f"  Checkpoint path : {checkpoint_path}")
+    log("=" * 60 + "\n")
 
     history = {"train_loss": [], "val_ndcg10": []}
     best_ndcg10 = 0.0
@@ -160,7 +166,7 @@ def train_model(model, train_loader, val_data, num_items, epochs=200,
         history["train_loss"].append(avg_train_loss)
         history["val_ndcg10"].append(ndcg10)
 
-        print(f"Epoch {epoch:03d}/{epochs} | "
+        log(f"Epoch {epoch:03d}/{epochs} | "
               f"Loss: {avg_train_loss:.4f} | "
               f"Val NDCG@10: {ndcg10:.4f} | "
               f"Val Recall@10: {recall10:.4f}")
@@ -170,23 +176,24 @@ def train_model(model, train_loader, val_data, num_items, epochs=200,
             best_ndcg10 = ndcg10
             epochs_no_improve = 0
             torch.save(model.state_dict(), checkpoint_path)
-            print(f"  -> New best — checkpoint saved ({checkpoint_path})")
+            log(f"  -> New best — checkpoint saved ({checkpoint_path})")
         else:
             if epoch > warmup_epochs: 
               epochs_no_improve += 1
               if epochs_no_improve >= patience:
-                 print(f"Early stopping triggered after {patience} epochs without improvement.")
+                 log(f"Early stopping triggered after {patience} epochs without improvement.")
                  break
 
     # Restore best weights before returning
     if os.path.exists(checkpoint_path):
         model.load_state_dict(torch.load(checkpoint_path, map_location=device))
-        print(f"Best checkpoint restored from {checkpoint_path}")
+        log(f"Best checkpoint restored from {checkpoint_path}")
     else:
         torch.save(model.state_dict(), checkpoint_path)
-        print("No checkpoint found — saving current model state.")
+        log("No checkpoint found — saving current model state.")
 
-    print(f"Training complete. Best val NDCG@10: {best_ndcg10:.4f}")
+    log(f"Training complete. Best val NDCG@10: {best_ndcg10:.4f}")
+    log_file.close()
     return history
 
 
@@ -230,11 +237,16 @@ if __name__ == "__main__":
         num_items=data["num_items"],
     )
 
+    device = torch.device(
+        "cuda" if torch.cuda.is_available() else
+        "mps"  if torch.backends.mps.is_available() else
+        "cpu"
+    )
     # Final test evaluation — copy these four numbers into the report
     model.eval()
     with torch.no_grad():
         ndcg10, ndcg20, recall10, recall20 = evaluate(
-            model, data["test"], data["num_items"]
+            model, data["test"], data["num_items"], device=device
         )
 
     print(f"\nTest Results:")

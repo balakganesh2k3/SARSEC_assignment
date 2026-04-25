@@ -1,0 +1,455 @@
+Training on: cuda                                                                                                  
+  GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
+  VRAM: 6.4 GB
+
+============================================================
+  TRAINING CONFIGURATION
+============================================================
+  Device          : cuda (NVIDIA GeForce RTX 3050 6GB Laptop GPU)
+  VRAM            : 6.4 GB
+  AMP (mixed prec): Enabled (float16)
+------------------------------------------------------------
+  MODEL
+  Architecture    : SASRec
+  Num items       : 3,533
+  Hidden size     : 50
+  Attention heads : 1
+  Transformer blks: 2
+  Max seq length  : 200
+  Dropout rate    : 0.2
+  Total params    : 217,800
+  Trainable params: 217,800
+------------------------------------------------------------
+  TRAINING
+  Epochs          : 200
+  Learning rate   : 0.001
+  Optimizer       : Adam (β1=0.9, β2=0.98)
+  Scheduler       : Warmup(10 ep) + CosineAnnealingLR
+  Batch size      : 512
+  Train batches   : 1089
+  Early stopping  : patience=5
+  Checkpoint path : checkpoints/best_model.pt
+============================================================
+
+Epoch 001/200 | Loss: 4.4637 | Val NDCG@10: 0.0013 | Val Recall@10: 0.0031                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 002/200 | Loss: 1.5722 | Val NDCG@10: 0.0069 | Val Recall@10: 0.0179                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 003/200 | Loss: 1.0041 | Val NDCG@10: 0.0108 | Val Recall@10: 0.0232                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 004/200 | Loss: 0.9043 | Val NDCG@10: 0.0101 | Val Recall@10: 0.0237                                                             
+Epoch 005/200 | Loss: 0.8689 | Val NDCG@10: 0.0114 | Val Recall@10: 0.0247                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 006/200 | Loss: 0.8109 | Val NDCG@10: 0.0136 | Val Recall@10: 0.0317                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 007/200 | Loss: 0.7454 | Val NDCG@10: 0.0151 | Val Recall@10: 0.0350                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 008/200 | Loss: 0.6888 | Val NDCG@10: 0.0205 | Val Recall@10: 0.0471                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 009/200 | Loss: 0.6229 | Val NDCG@10: 0.0239 | Val Recall@10: 0.0535                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src\sasrec_env313\Lib\site-packages\torch\optim\lr_scheduler.py:243: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 010/200 | Loss: 0.5684 | Val NDCG@10: 0.0276 | Val Recall@10: 0.0636
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 011/200 | Loss: 0.5310 | Val NDCG@10: 0.0310 | Val Recall@10: 0.0708                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 012/200 | Loss: 0.5009 | Val NDCG@10: 0.0347 | Val Recall@10: 0.0832                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 013/200 | Loss: 0.4774 | Val NDCG@10: 0.0377 | Val Recall@10: 0.0885                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 014/200 | Loss: 0.4589 | Val NDCG@10: 0.0408 | Val Recall@10: 0.0963                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 015/200 | Loss: 0.4442 | Val NDCG@10: 0.0449 | Val Recall@10: 0.1052                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 016/200 | Loss: 0.4323 | Val NDCG@10: 0.0465 | Val Recall@10: 0.1086                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 017/200 | Loss: 0.4232 | Val NDCG@10: 0.0473 | Val Recall@10: 0.1112                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 018/200 | Loss: 0.4156 | Val NDCG@10: 0.0489 | Val Recall@10: 0.1148                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 019/200 | Loss: 0.4093 | Val NDCG@10: 0.0510 | Val Recall@10: 0.1197                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 020/200 | Loss: 0.4040 | Val NDCG@10: 0.0516 | Val Recall@10: 0.1210                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 021/200 | Loss: 0.3997 | Val NDCG@10: 0.0529 | Val Recall@10: 0.1230                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 022/200 | Loss: 0.3958 | Val NDCG@10: 0.0535 | Val Recall@10: 0.1250                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 023/200 | Loss: 0.3922 | Val NDCG@10: 0.0542 | Val Recall@10: 0.1261                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 024/200 | Loss: 0.3892 | Val NDCG@10: 0.0548 | Val Recall@10: 0.1276                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 025/200 | Loss: 0.3864 | Val NDCG@10: 0.0559 | Val Recall@10: 0.1304                                                             
+  -> New best — checkpoint saved (checkpoints/best_model.pt)
+Epoch 026/200 | Loss: 0.3840 | Val NDCG@10: 0.0553 | Val Recall@10: 0.1301                                                             
+Epoch 027/200 | Loss: 0.3819 | Val NDCG@10: 0.0559 | Val Recall@10: 0.1316                                                             
+Epoch 028/200 | Loss: 0.3798 | Val NDCG@10: 0.0555 | Val Recall@10: 0.1323                                                             
+Epoch 029/200 | Loss: 0.3781 | Val NDCG@10: 0.0558 | Val Recall@10: 0.1324                                                             
+Epoch 030/200 | Loss: 0.3765 | Val NDCG@10: 0.0558 | Val Recall@10: 0.1318                                                             
+Early stopping triggered after 5 epochs without improvement.
+Best checkpoint restored from checkpoints/best_model.pt
+Training complete. Best val NDCG@10: 0.0559
+
+Test Results:
+  NDCG@10:   0.0502
+  NDCG@20:   0.0729
+  Recall@10: 0.1172
+  Recall@20: 0.2085
+(sasrec_env313) PS C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src> python train.py
+Training on: cuda
+  GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
+  VRAM: 6.4 GB
+
+(sasrec_env313) PS C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src> python train.py
+Training on: cuda
+  GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
+  VRAM: 6.4 GB
+
+============================================================
+  TRAINING CONFIGURATION
+============================================================
+  Device          : cuda (NVIDIA GeForce RTX 3050 6GB Laptop GPU)
+  VRAM            : 6.4 GB
+  AMP (mixed prec): Enabled (float16)
+------------------------------------------------------------
+  MODEL
+  Architecture    : SASRec
+  Num items       : 3,533
+  Hidden size     : 100
+  Attention heads : 2
+  Transformer blks: 2
+  Max seq length  : 200
+  Dropout rate    : 0.2
+  Total params    : 495,600
+  Trainable params: 495,600
+------------------------------------------------------------
+  TRAINING
+  Epochs          : 200
+  Learning rate   : 0.001
+  Optimizer       : Adam (β1=0.9, β2=0.98)
+  Scheduler       : Warmup(10 ep) + CosineAnnealingLR
+  Batch size      : 512
+  Train batches   : 1089
+  Early stopping  : patience=5
+  Checkpoint path : checkpoints/best_model4.pt
+============================================================
+
+Epoch 001/200 | Loss: 5.0830 | Val NDCG@10: 0.0042 | Val Recall@10: 0.0099                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 002/200 | Loss: 1.5650 | Val NDCG@10: 0.0082 | Val Recall@10: 0.0179                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 003/200 | Loss: 1.0969 | Val NDCG@10: 0.0114 | Val Recall@10: 0.0278                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 004/200 | Loss: 0.9192 | Val NDCG@10: 0.0109 | Val Recall@10: 0.0259                                                             
+Epoch 005/200 | Loss: 0.8404 | Val NDCG@10: 0.0136 | Val Recall@10: 0.0325                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 006/200 | Loss: 0.7304 | Val NDCG@10: 0.0154 | Val Recall@10: 0.0358                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 007/200 | Loss: 0.6519 | Val NDCG@10: 0.0233 | Val Recall@10: 0.0530                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 008/200 | Loss: 0.5794 | Val NDCG@10: 0.0296 | Val Recall@10: 0.0706                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 009/200 | Loss: 0.5160 | Val NDCG@10: 0.0375 | Val Recall@10: 0.0903                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src\sasrec_env313\Lib\site-packages\torch\optim\lr_scheduler.py:243: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 010/200 | Loss: 0.4665 | Val NDCG@10: 0.0430 | Val Recall@10: 0.1037
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 011/200 | Loss: 0.4314 | Val NDCG@10: 0.0459 | Val Recall@10: 0.1104                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 012/200 | Loss: 0.4066 | Val NDCG@10: 0.0519 | Val Recall@10: 0.1268                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 013/200 | Loss: 0.3878 | Val NDCG@10: 0.0532 | Val Recall@10: 0.1294                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 014/200 | Loss: 0.3727 | Val NDCG@10: 0.0554 | Val Recall@10: 0.1362                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 015/200 | Loss: 0.3606 | Val NDCG@10: 0.0593 | Val Recall@10: 0.1437                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 016/200 | Loss: 0.3505 | Val NDCG@10: 0.0586 | Val Recall@10: 0.1430                                                             
+Epoch 017/200 | Loss: 0.3420 | Val NDCG@10: 0.0608 | Val Recall@10: 0.1488                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 018/200 | Loss: 0.3349 | Val NDCG@10: 0.0621 | Val Recall@10: 0.1526                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 019/200 | Loss: 0.3289 | Val NDCG@10: 0.0612 | Val Recall@10: 0.1501                                                             
+Epoch 020/200 | Loss: 0.3236 | Val NDCG@10: 0.0617 | Val Recall@10: 0.1513                                                             
+Epoch 021/200 | Loss: 0.3189 | Val NDCG@10: 0.0624 | Val Recall@10: 0.1531                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 022/200 | Loss: 0.3149 | Val NDCG@10: 0.0630 | Val Recall@10: 0.1543                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 023/200 | Loss: 0.3111 | Val NDCG@10: 0.0629 | Val Recall@10: 0.1550                                                             
+Epoch 024/200 | Loss: 0.3081 | Val NDCG@10: 0.0635 | Val Recall@10: 0.1556                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 025/200 | Loss: 0.3052 | Val NDCG@10: 0.0640 | Val Recall@10: 0.1558                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 026/200 | Loss: 0.3026 | Val NDCG@10: 0.0638 | Val Recall@10: 0.1571                                                             
+Epoch 027/200 | Loss: 0.3003 | Val NDCG@10: 0.0652 | Val Recall@10: 0.1603                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 028/200 | Loss: 0.2979 | Val NDCG@10: 0.0638 | Val Recall@10: 0.1564                                                             
+Epoch 029/200 | Loss: 0.2962 | Val NDCG@10: 0.0661 | Val Recall@10: 0.1622                                                             
+  -> New best — checkpoint saved (checkpoints/best_model4.pt)
+Epoch 030/200 | Loss: 0.2943 | Val NDCG@10: 0.0651 | Val Recall@10: 0.1586                                                             
+Epoch 031/200 | Loss: 0.2926 | Val NDCG@10: 0.0652 | Val Recall@10: 0.1583                                                             
+Epoch 032/200 | Loss: 0.2911 | Val NDCG@10: 0.0657 | Val Recall@10: 0.1596                                                             
+Epoch 033/200 | Loss: 0.2898 | Val NDCG@10: 0.0650 | Val Recall@10: 0.1591                                                             
+Epoch 034/200 | Loss: 0.2885 | Val NDCG@10: 0.0648 | Val Recall@10: 0.1581                                                             
+Early stopping triggered after 5 epochs without improvement.
+Best checkpoint restored from checkpoints/best_model4.pt
+Training complete. Best val NDCG@10: 0.0661
+
+Test Results:
+  NDCG@10:   0.0591
+  NDCG@20:   0.0841
+  Recall@10: 0.1455
+  Recall@20: 0.2453
+(sasrec_env313) PS C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src> python train.py
+Training on: cuda
+  GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
+  VRAM: 6.4 GB
+
+============================================================
+  TRAINING CONFIGURATION
+============================================================
+  Device          : cuda (NVIDIA GeForce RTX 3050 6GB Laptop GPU)
+  VRAM            : 6.4 GB
+  AMP (mixed prec): Enabled (float16)
+------------------------------------------------------------
+  MODEL
+  Architecture    : SASRec
+  Num items       : 3,533
+  Hidden size     : 50
+  Attention heads : 1
+  Transformer blks: 3
+  Max seq length  : 200
+  Dropout rate    : 0.2
+  Total params    : 233,300
+  Trainable params: 233,300
+------------------------------------------------------------
+  TRAINING
+  Epochs          : 200
+  Learning rate   : 0.001
+  Optimizer       : Adam (β1=0.9, β2=0.98)
+  Scheduler       : Warmup(10 ep) + CosineAnnealingLR
+  Batch size      : 512
+  Train batches   : 1089
+  Early stopping  : patience=5
+  Checkpoint path : checkpoints/best_model3.pt
+============================================================
+
+Epoch 001/200 | Loss: 4.2046 | Val NDCG@10: 0.0010 | Val Recall@10: 0.0025                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 002/200 | Loss: 1.4517 | Val NDCG@10: 0.0078 | Val Recall@10: 0.0201                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 003/200 | Loss: 0.9756 | Val NDCG@10: 0.0106 | Val Recall@10: 0.0225                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 004/200 | Loss: 0.9023 | Val NDCG@10: 0.0098 | Val Recall@10: 0.0225                                                             
+Epoch 005/200 | Loss: 0.8694 | Val NDCG@10: 0.0111 | Val Recall@10: 0.0245                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 006/200 | Loss: 0.8129 | Val NDCG@10: 0.0140 | Val Recall@10: 0.0330                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 007/200 | Loss: 0.7423 | Val NDCG@10: 0.0153 | Val Recall@10: 0.0355                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 008/200 | Loss: 0.6829 | Val NDCG@10: 0.0213 | Val Recall@10: 0.0476                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 009/200 | Loss: 0.6123 | Val NDCG@10: 0.0251 | Val Recall@10: 0.0563                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src\sasrec_env313\Lib\site-packages\torch\optim\lr_scheduler.py:243: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 010/200 | Loss: 0.5570 | Val NDCG@10: 0.0284 | Val Recall@10: 0.0660
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 011/200 | Loss: 0.5173 | Val NDCG@10: 0.0330 | Val Recall@10: 0.0752                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 012/200 | Loss: 0.4861 | Val NDCG@10: 0.0387 | Val Recall@10: 0.0898                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 013/200 | Loss: 0.4626 | Val NDCG@10: 0.0439 | Val Recall@10: 0.1011                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 014/200 | Loss: 0.4432 | Val NDCG@10: 0.0455 | Val Recall@10: 0.1054                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 015/200 | Loss: 0.4283 | Val NDCG@10: 0.0505 | Val Recall@10: 0.1165                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 016/200 | Loss: 0.4170 | Val NDCG@10: 0.0514 | Val Recall@10: 0.1187                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 017/200 | Loss: 0.4074 | Val NDCG@10: 0.0527 | Val Recall@10: 0.1216                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 018/200 | Loss: 0.4000 | Val NDCG@10: 0.0555 | Val Recall@10: 0.1273                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 019/200 | Loss: 0.3934 | Val NDCG@10: 0.0568 | Val Recall@10: 0.1306                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 020/200 | Loss: 0.3877 | Val NDCG@10: 0.0573 | Val Recall@10: 0.1327                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 021/200 | Loss: 0.3831 | Val NDCG@10: 0.0576 | Val Recall@10: 0.1331                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 022/200 | Loss: 0.3791 | Val NDCG@10: 0.0578 | Val Recall@10: 0.1346                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 023/200 | Loss: 0.3754 | Val NDCG@10: 0.0580 | Val Recall@10: 0.1344                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 024/200 | Loss: 0.3722 | Val NDCG@10: 0.0588 | Val Recall@10: 0.1366                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 025/200 | Loss: 0.3695 | Val NDCG@10: 0.0590 | Val Recall@10: 0.1382                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 026/200 | Loss: 0.3671 | Val NDCG@10: 0.0595 | Val Recall@10: 0.1407                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 027/200 | Loss: 0.3648 | Val NDCG@10: 0.0593 | Val Recall@10: 0.1379                                                             
+Epoch 028/200 | Loss: 0.3629 | Val NDCG@10: 0.0586 | Val Recall@10: 0.1362                                                             
+Epoch 029/200 | Loss: 0.3612 | Val NDCG@10: 0.0598 | Val Recall@10: 0.1407                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 030/200 | Loss: 0.3596 | Val NDCG@10: 0.0598 | Val Recall@10: 0.1415                                                             
+  -> New best — checkpoint saved (checkpoints/best_model3.pt)
+Epoch 031/200 | Loss: 0.3581 | Val NDCG@10: 0.0594 | Val Recall@10: 0.1389                                                             
+Epoch 032/200 | Loss: 0.3570 | Val NDCG@10: 0.0594 | Val Recall@10: 0.1397                                                             
+Epoch 033/200 | Loss: 0.3554 | Val NDCG@10: 0.0593 | Val Recall@10: 0.1389                                                             
+Epoch 034/200 | Loss: 0.3547 | Val NDCG@10: 0.0597 | Val Recall@10: 0.1400                                                             
+Epoch 035/200 | Loss: 0.3536 | Val NDCG@10: 0.0597 | Val Recall@10: 0.1399                                                             
+Early stopping triggered after 5 epochs without improvement.
+Best checkpoint restored from checkpoints/best_model3.pt
+Training complete. Best val NDCG@10: 0.0598
+
+Test Results:
+  NDCG@10:   0.0537
+  NDCG@20:   0.0797
+  Recall@10: 0.1251
+  Recall@20: 0.2282
+(sasrec_env313) PS C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src> python train.py
+Training on: cuda
+  GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
+  VRAM: 6.4 GB
+
+============================================================
+  TRAINING CONFIGURATION
+============================================================
+  Device          : cuda (NVIDIA GeForce RTX 3050 6GB Laptop GPU)
+  VRAM            : 6.4 GB
+  AMP (mixed prec): Enabled (float16)
+------------------------------------------------------------
+  MODEL
+  Architecture    : SASRec
+  Num items       : 3,533
+  Hidden size     : 50
+  Attention heads : 1
+  Transformer blks: 1
+  Max seq length  : 200
+  Dropout rate    : 0.2
+  Total params    : 202,300
+  Trainable params: 202,300
+------------------------------------------------------------
+  TRAINING
+  Epochs          : 200
+  Learning rate   : 0.001
+  Optimizer       : Adam (β1=0.9, β2=0.98)
+  Scheduler       : Warmup(10 ep) + CosineAnnealingLR
+  Batch size      : 512
+  Train batches   : 1089
+  Early stopping  : patience=5
+  Checkpoint path : checkpoints/best_model2.pt
+============================================================
+
+Epoch 001/200 | Loss: 4.9072 | Val NDCG@10: 0.0014 | Val Recall@10: 0.0033                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 002/200 | Loss: 1.8696 | Val NDCG@10: 0.0073 | Val Recall@10: 0.0186                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 003/200 | Loss: 1.0795 | Val NDCG@10: 0.0104 | Val Recall@10: 0.0235                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 004/200 | Loss: 0.9107 | Val NDCG@10: 0.0104 | Val Recall@10: 0.0237                                                             
+Epoch 005/200 | Loss: 0.8674 | Val NDCG@10: 0.0113 | Val Recall@10: 0.0249                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 006/200 | Loss: 0.8048 | Val NDCG@10: 0.0134 | Val Recall@10: 0.0312                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 007/200 | Loss: 0.7364 | Val NDCG@10: 0.0173 | Val Recall@10: 0.0389                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 008/200 | Loss: 0.6715 | Val NDCG@10: 0.0215 | Val Recall@10: 0.0491                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 009/200 | Loss: 0.6114 | Val NDCG@10: 0.0250 | Val Recall@10: 0.0552                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src\sasrec_env313\Lib\site-packages\torch\optim\lr_scheduler.py:243: UserWarning: The epoch parameter in `scheduler.step()` was not necessary and is being deprecated where possible. Please use `scheduler.step()` to step the scheduler. During the deprecation, if epoch is different from None, the closed form is used instead of the new chainable form, where available. Please open an issue if you are unable to replicate your use case: https://github.com/pytorch/pytorch/issues/new/choose.
+  warnings.warn(EPOCH_DEPRECATION_WARNING, UserWarning)
+Epoch 010/200 | Loss: 0.5685 | Val NDCG@10: 0.0283 | Val Recall@10: 0.0646
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 011/200 | Loss: 0.5365 | Val NDCG@10: 0.0309 | Val Recall@10: 0.0733                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 012/200 | Loss: 0.5117 | Val NDCG@10: 0.0336 | Val Recall@10: 0.0804                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 013/200 | Loss: 0.4916 | Val NDCG@10: 0.0363 | Val Recall@10: 0.0872                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 014/200 | Loss: 0.4753 | Val NDCG@10: 0.0404 | Val Recall@10: 0.0955                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 015/200 | Loss: 0.4627 | Val NDCG@10: 0.0423 | Val Recall@10: 0.1013                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 016/200 | Loss: 0.4529 | Val NDCG@10: 0.0447 | Val Recall@10: 0.1066                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 017/200 | Loss: 0.4450 | Val NDCG@10: 0.0450 | Val Recall@10: 0.1067                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 018/200 | Loss: 0.4387 | Val NDCG@10: 0.0470 | Val Recall@10: 0.1112                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 019/200 | Loss: 0.4332 | Val NDCG@10: 0.0473 | Val Recall@10: 0.1120                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 020/200 | Loss: 0.4285 | Val NDCG@10: 0.0482 | Val Recall@10: 0.1153                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 021/200 | Loss: 0.4244 | Val NDCG@10: 0.0474 | Val Recall@10: 0.1134                                                             
+Epoch 022/200 | Loss: 0.4212 | Val NDCG@10: 0.0482 | Val Recall@10: 0.1158                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 023/200 | Loss: 0.4180 | Val NDCG@10: 0.0491 | Val Recall@10: 0.1177                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 024/200 | Loss: 0.4152 | Val NDCG@10: 0.0494 | Val Recall@10: 0.1195                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 025/200 | Loss: 0.4128 | Val NDCG@10: 0.0502 | Val Recall@10: 0.1218                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 026/200 | Loss: 0.4107 | Val NDCG@10: 0.0503 | Val Recall@10: 0.1225                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 027/200 | Loss: 0.4087 | Val NDCG@10: 0.0506 | Val Recall@10: 0.1231                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 028/200 | Loss: 0.4071 | Val NDCG@10: 0.0510 | Val Recall@10: 0.1241                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 029/200 | Loss: 0.4052 | Val NDCG@10: 0.0510 | Val Recall@10: 0.1241                                                             
+Epoch 030/200 | Loss: 0.4040 | Val NDCG@10: 0.0509 | Val Recall@10: 0.1245                                                             
+Epoch 031/200 | Loss: 0.4027 | Val NDCG@10: 0.0510 | Val Recall@10: 0.1236                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 032/200 | Loss: 0.4015 | Val NDCG@10: 0.0510 | Val Recall@10: 0.1241                                                             
+Epoch 033/200 | Loss: 0.4005 | Val NDCG@10: 0.0511 | Val Recall@10: 0.1251                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 034/200 | Loss: 0.3995 | Val NDCG@10: 0.0516 | Val Recall@10: 0.1265                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 035/200 | Loss: 0.3985 | Val NDCG@10: 0.0512 | Val Recall@10: 0.1256                                                             
+Epoch 036/200 | Loss: 0.3976 | Val NDCG@10: 0.0516 | Val Recall@10: 0.1274                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 037/200 | Loss: 0.3969 | Val NDCG@10: 0.0519 | Val Recall@10: 0.1274                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 038/200 | Loss: 0.3962 | Val NDCG@10: 0.0514 | Val Recall@10: 0.1260                                                             
+Epoch 039/200 | Loss: 0.3954 | Val NDCG@10: 0.0514 | Val Recall@10: 0.1260                                                             
+Epoch 040/200 | Loss: 0.3947 | Val NDCG@10: 0.0515 | Val Recall@10: 0.1261                                                             
+Epoch 041/200 | Loss: 0.3939 | Val NDCG@10: 0.0520 | Val Recall@10: 0.1278                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 042/200 | Loss: 0.3935 | Val NDCG@10: 0.0520 | Val Recall@10: 0.1274                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 043/200 | Loss: 0.3930 | Val NDCG@10: 0.0523 | Val Recall@10: 0.1286                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 044/200 | Loss: 0.3924 | Val NDCG@10: 0.0524 | Val Recall@10: 0.1283                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 045/200 | Loss: 0.3920 | Val NDCG@10: 0.0519 | Val Recall@10: 0.1276                                                             
+Epoch 046/200 | Loss: 0.3916 | Val NDCG@10: 0.0520 | Val Recall@10: 0.1279                                                             
+Epoch 047/200 | Loss: 0.3912 | Val NDCG@10: 0.0520 | Val Recall@10: 0.1279                                                             
+Epoch 048/200 | Loss: 0.3907 | Val NDCG@10: 0.0526 | Val Recall@10: 0.1291                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 049/200 | Loss: 0.3903 | Val NDCG@10: 0.0525 | Val Recall@10: 0.1294                                                             
+Epoch 050/200 | Loss: 0.3898 | Val NDCG@10: 0.0530 | Val Recall@10: 0.1296                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 051/200 | Loss: 0.3895 | Val NDCG@10: 0.0524 | Val Recall@10: 0.1288                                                             
+Epoch 052/200 | Loss: 0.3892 | Val NDCG@10: 0.0525 | Val Recall@10: 0.1283                                                             
+Epoch 053/200 | Loss: 0.3890 | Val NDCG@10: 0.0527 | Val Recall@10: 0.1288                                                             
+Epoch 054/200 | Loss: 0.3887 | Val NDCG@10: 0.0529 | Val Recall@10: 0.1293                                                             
+Epoch 055/200 | Loss: 0.3882 | Val NDCG@10: 0.0536 | Val Recall@10: 0.1313                                                             
+  -> New best — checkpoint saved (checkpoints/best_model2.pt)
+Epoch 056/200 | Loss: 0.3880 | Val NDCG@10: 0.0534 | Val Recall@10: 0.1308                                                             
+Epoch 057/200 | Loss: 0.3877 | Val NDCG@10: 0.0521 | Val Recall@10: 0.1276                                                             
+Epoch 058/200 | Loss: 0.3874 | Val NDCG@10: 0.0534 | Val Recall@10: 0.1308                                                             
+Epoch 059/200 | Loss: 0.3873 | Val NDCG@10: 0.0528 | Val Recall@10: 0.1294                                                             
+Epoch 060/200 | Loss: 0.3870 | Val NDCG@10: 0.0534 | Val Recall@10: 0.1309                                                             
+Early stopping triggered after 5 epochs without improvement.
+Best checkpoint restored from checkpoints/best_model2.pt
+Training complete. Best val NDCG@10: 0.0536
+
+Test Results:
+  NDCG@10:   0.0475
+  NDCG@20:   0.0710
+  Recall@10: 0.1148
+  Recall@20: 0.2082
+(sasrec_env313) PS C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src> 
