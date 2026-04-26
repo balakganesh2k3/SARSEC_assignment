@@ -452,4 +452,6 @@ Test Results:
   NDCG@20:   0.0710
   Recall@10: 0.1148
   Recall@20: 0.2082
-(sasrec_env313) PS C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src> 
+(sasrec_env313) PS C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src> Training on: cuda
+GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
+VRAM: 6.4 GB
