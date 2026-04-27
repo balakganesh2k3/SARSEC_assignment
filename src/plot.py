@@ -12,15 +12,15 @@ def parse_curve(log_path, target_hid=100, target_heads=2, target_blocks=2):
         for line in f:
             line = line.strip()
             # Parse config header lines to identify which run we're in
-            if "Transformer blks:" in line:
+            if "Transformer blks :" in line:
                 current_blocks = int(line.split(":")[1].strip())
-            elif "Hidden size" in line:
+            elif "Hidden size :" in line:
                 current_hidden = int(line.split(":")[1].strip())
-            elif "Attention heads" in line:
+            elif "Attention heads :" in line:
                 current_heads = int(line.split(":")[1].strip())
                 # All three config values now known — check if this is the target run
                 if (current_hidden == target_hid and
-                    current_heads  == target_heads  and
+                    current_heads == target_heads  and
                     current_blocks == target_blocks):
                     in_best = True
                     train_losses = []  # reset in case the config appears multiple times
