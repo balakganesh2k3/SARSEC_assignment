@@ -455,3 +455,134 @@ Test Results:
 (sasrec_env313) PS C:\Users\Bala Ganesh\Downloads\sarsec_assign\SARSEC_assignment\src> Training on: cuda
 GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
 VRAM: 6.4 GB
+Training on: cuda
+GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
+VRAM: 6.4 GB
+
+============================================================
+Training configs
+============================================================
+Device : cuda(NVIDIA GeForce RTX 3050 6GB Laptop GPU)
+VRAM : 6.4 GB
+AMP (mixed prec) : enabled (float16)
+------------------------------------------------------------
+Model
+Architecture : SASRec
+Num items : 3,533
+Hidden size : 50
+Attention heads : 1
+Transformer blks : 2
+Max seq length : 50
+Dropout rate : 0.2
+Total params : 210,300
+Trainable params: 210,300
+------------------------------------------------------------
+Training
+Epochs : 200
+Learning rate : 0.001
+Training on: cuda
+GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
+VRAM: 6.4 GB
+
+============================================================
+Training configs
+============================================================
+Device : cuda(NVIDIA GeForce RTX 3050 6GB Laptop GPU)
+VRAM : 6.4 GB
+AMP (mixed prec) : enabled (float16)
+------------------------------------------------------------
+Model
+Architecture : SASRec
+Num items : 3,533
+Hidden size : 50
+Attention heads : 1
+Transformer blks : 2
+Max seq length : 50
+Dropout rate : 0.2
+Total params : 210,300
+Trainable params: 210,300
+------------------------------------------------------------
+Training
+Epochs : 200
+Learning rate : 0.001
+Optimizer : Adam (β1=0.9, β2=0.98)
+Scheduler : Warmup(10 ep) + CosineAnnealingLR
+Batch size : 512
+Train batches : 1089
+Early stopping : patience=5
+Checkpoint path : checkpoints/best_model.pt
+============================================================
+
+Training on: cuda
+GPU : NVIDIA GeForce RTX 3050 6GB Laptop GPU
+VRAM: 6.4 GB
+
+============================================================
+Training configs
+============================================================
+Device : cuda(NVIDIA GeForce RTX 3050 6GB Laptop GPU)
+VRAM : 6.4 GB
+AMP (mixed prec) : enabled (float16)
+------------------------------------------------------------
+Model
+Architecture : SASRec
+Num items : 3,533
+Hidden size : 50
+Attention heads : 1
+Transformer blks : 2
+Max seq length : 50
+Dropout rate : 0.2
+Total params : 210,300
+Trainable params: 210,300
+------------------------------------------------------------
+Training
+Epochs : 200
+Learning rate : 0.001
+Optimizer : Adam (β1=0.9, β2=0.98)
+Scheduler : Warmup(10 ep) + CosineAnnealingLR
+Batch size : 512
+Train batches : 1089
+Early stopping : patience=5
+Checkpoint path : checkpoints/best_model5.pt
+============================================================
+
+Epoch 001/200 | Loss: 4.7447 | Val NDCG@10: 0.0019 | Val Recall@10: 0.0035
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 002/200 | Loss: 1.7377 | Val NDCG@10: 0.0068 | Val Recall@10: 0.0161
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 003/200 | Loss: 1.0278 | Val NDCG@10: 0.0110 | Val Recall@10: 0.0237
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 004/200 | Loss: 0.9198 | Val NDCG@10: 0.0101 | Val Recall@10: 0.0229
+Epoch 005/200 | Loss: 0.8873 | Val NDCG@10: 0.0110 | Val Recall@10: 0.0242
+Epoch 006/200 | Loss: 0.8668 | Val NDCG@10: 0.0114 | Val Recall@10: 0.0252
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 007/200 | Loss: 0.8095 | Val NDCG@10: 0.0140 | Val Recall@10: 0.0313
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 008/200 | Loss: 0.7554 | Val NDCG@10: 0.0171 | Val Recall@10: 0.0381
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 009/200 | Loss: 0.7098 | Val NDCG@10: 0.0190 | Val Recall@10: 0.0439
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 010/200 | Loss: 0.6541 | Val NDCG@10: 0.0210 | Val Recall@10: 0.0484
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 011/200 | Loss: 0.6133 | Val NDCG@10: 0.0242 | Val Recall@10: 0.0550
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 012/200 | Loss: 0.5848 | Val NDCG@10: 0.0292 | Val Recall@10: 0.0656
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 013/200 | Loss: 0.5627 | Val NDCG@10: 0.0322 | Val Recall@10: 0.0731
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 014/200 | Loss: 0.5426 | Val NDCG@10: 0.0355 | Val Recall@10: 0.0800
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 015/200 | Loss: 0.5269 | Val NDCG@10: 0.0375 | Val Recall@10: 0.0858
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 016/200 | Loss: 0.5136 | Val NDCG@10: 0.0399 | Val Recall@10: 0.0910
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 017/200 | Loss: 0.5021 | Val NDCG@10: 0.0425 | Val Recall@10: 0.0956
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 018/200 | Loss: 0.4918 | Val NDCG@10: 0.0441 | Val Recall@10: 0.0996
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 019/200 | Loss: 0.4824 | Val NDCG@10: 0.0461 | Val Recall@10: 0.1069
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 020/200 | Loss: 0.4741 | Val NDCG@10: 0.0471 | Val Recall@10: 0.1077
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 021/200 | Loss: 0.4670 | Val NDCG@10: 0.0491 | Val Recall@10: 0.1142
+New best checkpoint saved (checkpoints/best_model5.pt)
