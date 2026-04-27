@@ -11,12 +11,12 @@ from model import SASrec
 from evaluate import evaluate
 from interface import MAX_LENGTH
 
-def train_model(model, train_loader, val_data, num_items, epochs=200, lr=0.001, patience=5, checkpoint_path="checkpoints/best_model.pt", device=None) -> dict:
+def train_model(model, train_loader, val_data, num_items, epochs=200, lr=0.001, patience=5, checkpoint_path="checkpoints/best_model5.pt", device=None) -> dict:
     if device is None:
         device = ("cuda" if torch.cuda.is_available() else
                   "mps"  if torch.backends.mps.is_available() else
                   "cpu")
-    log_file = open("Training_on_cuda.txt", "a")
+    log_file = open("Training_on_cuda.txt", "a", encoding="utf-8")
     def log(msg):
         print(msg)
         log_file.write(msg + "\n")
@@ -139,7 +139,7 @@ if __name__ == "__main__":
     num_workers = 0 if os.name == "nt" else min(4, os.cpu_count() or 2)
     dataset = SASRecDataset(data["train"], data["num_items"])
     train_loader = DataLoader(dataset, batch_size=512, shuffle=True, num_workers=num_workers, pin_memory=torch.cuda.is_available(), persistent_workers=(num_workers > 0))
-    model = SASrec(num_items=data["num_items"], hid_size=50, head_nums=1, block_nums=1, maxlen=MAX_LENGTH, dropout_rate=0.2)
+    model = SASrec(num_items=data["num_items"], hid_size=50, head_nums=1, block_nums=2, maxlen=MAX_LENGTH, dropout_rate=0.2)
     history = train_model(model=model, train_loader=train_loader, val_data=data["val"], num_items=data["num_items"])
     device = torch.device("cuda" if torch.cuda.is_available() else
                           "mps"  if torch.backends.mps.is_available() else

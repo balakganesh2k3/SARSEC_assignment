@@ -586,3 +586,44 @@ Epoch 020/200 | Loss: 0.4741 | Val NDCG@10: 0.0471 | Val Recall@10: 0.1077
 New best checkpoint saved (checkpoints/best_model5.pt)
 Epoch 021/200 | Loss: 0.4670 | Val NDCG@10: 0.0491 | Val Recall@10: 0.1142
 New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 022/200 | Loss: 0.4613 | Val NDCG@10: 0.0488 | Val Recall@10: 0.1130
+Epoch 023/200 | Loss: 0.4564 | Val NDCG@10: 0.0513 | Val Recall@10: 0.1187
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 024/200 | Loss: 0.4519 | Val NDCG@10: 0.0511 | Val Recall@10: 0.1188
+Epoch 025/200 | Loss: 0.4482 | Val NDCG@10: 0.0524 | Val Recall@10: 0.1213
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 026/200 | Loss: 0.4451 | Val NDCG@10: 0.0531 | Val Recall@10: 0.1221
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 027/200 | Loss: 0.4421 | Val NDCG@10: 0.0538 | Val Recall@10: 0.1261
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 028/200 | Loss: 0.4393 | Val NDCG@10: 0.0546 | Val Recall@10: 0.1263
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 029/200 | Loss: 0.4368 | Val NDCG@10: 0.0543 | Val Recall@10: 0.1260
+Epoch 030/200 | Loss: 0.4345 | Val NDCG@10: 0.0553 | Val Recall@10: 0.1294
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 031/200 | Loss: 0.4325 | Val NDCG@10: 0.0555 | Val Recall@10: 0.1289
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 032/200 | Loss: 0.4299 | Val NDCG@10: 0.0572 | Val Recall@10: 0.1327
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 033/200 | Loss: 0.4283 | Val NDCG@10: 0.0567 | Val Recall@10: 0.1318
+Epoch 034/200 | Loss: 0.4264 | Val NDCG@10: 0.0574 | Val Recall@10: 0.1329
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 035/200 | Loss: 0.4247 | Val NDCG@10: 0.0571 | Val Recall@10: 0.1321
+Epoch 036/200 | Loss: 0.4233 | Val NDCG@10: 0.0567 | Val Recall@10: 0.1327
+Epoch 037/200 | Loss: 0.4214 | Val NDCG@10: 0.0567 | Val Recall@10: 0.1329
+Epoch 038/200 | Loss: 0.4206 | Val NDCG@10: 0.0574 | Val Recall@10: 0.1332
+Epoch 039/200 | Loss: 0.4194 | Val NDCG@10: 0.0578 | Val Recall@10: 0.1347
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 040/200 | Loss: 0.4181 | Val NDCG@10: 0.0583 | Val Recall@10: 0.1366
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 041/200 | Loss: 0.4169 | Val NDCG@10: 0.0575 | Val Recall@10: 0.1339
+Epoch 042/200 | Loss: 0.4163 | Val NDCG@10: 0.0588 | Val Recall@10: 0.1379
+New best checkpoint saved (checkpoints/best_model5.pt)
+Epoch 043/200 | Loss: 0.4150 | Val NDCG@10: 0.0577 | Val Recall@10: 0.1352
+Epoch 044/200 | Loss: 0.4143 | Val NDCG@10: 0.0582 | Val Recall@10: 0.1366
+Epoch 045/200 | Loss: 0.4135 | Val NDCG@10: 0.0587 | Val Recall@10: 0.1389
+Epoch 046/200 | Loss: 0.4127 | Val NDCG@10: 0.0578 | Val Recall@10: 0.1356
+Epoch 047/200 | Loss: 0.4119 | Val NDCG@10: 0.0579 | Val Recall@10: 0.1367
+Early stopping triggered after 5 epochs without improvement.
+Best checkpoint restored from checkpoints/best_model5.pt
+Training complete best val NDCG@10: 0.0588
