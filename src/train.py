@@ -82,21 +82,27 @@ def train_model(model, train_loader, val_data, num_items, epochs=200, lr=0.001, 
         running_loss = 0.0
         progress = tqdm(train_loader, desc=f"Epoch {epoch:03d}/{epochs}", leave=False)
         for seq, pos, neg in progress:
+            # non_blocking overlaps CPU->GPU transfer with GPU compute
+            # only works when pin_memory=True in the DataLoader
             seq = seq.to(device, non_blocking=True)
             pos = pos.to(device, non_blocking=True)
             neg = neg.to(device, non_blocking=True)
+            # set_to_none skips the memset, slightly faster than zeroing
             optimizer.zero_grad(set_to_none=True)
             with autocast(device_type="cuda" if device.type == "cuda" else "cpu"):
                 h = model(seq)                        
                 pos_emb = model.item_emb(pos)         
                 neg_emb = model.item_emb(neg)         
                 pos_logits = (h * pos_emb).sum(-1)    
-                neg_logits = (h * neg_emb).sum(-1)  
-                istarget = (pos != 0).float()         
+                neg_logits = (h * neg_emb).sum(-1) 
+                # istarget masks padding (item id == 0) so padded positions
+                # don't contribute to the loss 
+                istarget = (pos != 0).float()
+                # binary cross-entropy over every valid position         
                 loss  = -torch.log(torch.sigmoid(pos_logits) + 1e-8) * istarget
                 loss += -torch.log(1 - torch.sigmoid(neg_logits) + 1e-8) * istarget
                 loss  = loss.sum() / istarget.sum()
-            scaler.scale(loss).backward()
+            scaler.scale(loss).backward() # unscales grads before the update
             scaler.step(optimizer)
             scaler.update()
             running_loss += loss.item()
@@ -115,11 +121,13 @@ def train_model(model, train_loader, val_data, num_items, epochs=200, lr=0.001, 
             torch.save(model.state_dict(), checkpoint_path)
             log(f"New best checkpoint saved ({checkpoint_path})")
         else:
+            # don't count warmup epochs against patience metrics are
             if epoch > warmup_epochs: 
               epochs_no_improve += 1
               if epochs_no_improve >= patience:
                  log(f"Early stopping triggered after {patience} epochs without improvement.")
                  break
+     # restore the best weights, not whatever state the model ended in
     if os.path.exists(checkpoint_path):
         model.load_state_dict(torch.load(checkpoint_path, map_location=device))
         log(f"Best checkpoint restored from {checkpoint_path}")
@@ -132,15 +140,18 @@ def train_model(model, train_loader, val_data, num_items, epochs=200, lr=0.001, 
 
 if __name__ == "__main__":
     torch.manual_seed(42)
+    # use all available CPU cores for data preprocessing and tensor ops
     torch.set_num_threads(os.cpu_count())
     torch.set_num_interop_threads(os.cpu_count())
     with open("../data/processed/data.pkl", "rb") as f:
         data = pickle.load(f)
+    # multiprocessing workers on Windows cause more overhead than they save
     num_workers = 0 if os.name == "nt" else min(4, os.cpu_count() or 2)
     dataset = SASRecDataset(data["train"], data["num_items"])
-    train_loader = DataLoader(dataset, batch_size=512, shuffle=True, num_workers=num_workers, pin_memory=torch.cuda.is_available(), persistent_workers=(num_workers > 0))
+    train_loader = DataLoader(dataset, batch_size=512, shuffle=True, num_workers=num_workers, pin_memory=torch.cuda.is_available(), persistent_workers=(num_workers > 0)) # needed for non_blocking transfers
     model = SASrec(num_items=data["num_items"], hid_size=50, head_nums=1, block_nums=2, maxlen=MAX_LENGTH, dropout_rate=0.2)
     history = train_model(model=model, train_loader=train_loader, val_data=data["val"], num_items=data["num_items"])
+    # run final test evaluation on the best checkpoint
     device = torch.device("cuda" if torch.cuda.is_available() else
                           "mps"  if torch.backends.mps.is_available() else
                           "cpu")
