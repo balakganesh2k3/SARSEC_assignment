@@ -29,7 +29,7 @@ pip install torch --index-url https://download.pytorch.org/whl/cu121
 pip install numpy pandas tqdm matplotlib
 ```
 Download MovieLens-1M from [grouplens.org/datasets/movielens/1m](https://grouplens.org/datasets/movielens/1m/) and put `ratings.dat` in `data/`.
-
+---
 ## Running
 **Step 1 — preprocess:**
 ```bash
@@ -53,24 +53,42 @@ Reads `Training_on_cuda.txt`, saves training curve to `../results/sasrec_line.pn
 ---
 ## Hyperparameters
 
-| Parameter | Default |
-|---|---|
-| Hidden size | 50 |
-| Attention heads | 1 |
-| Transformer blocks | 2 |
-| Max sequence length | 200 |
-| Dropout | 0.2 |
-| Batch size | 512 |
-| Learning rate | 0.001 |
-| Optimizer | Adam (β1=0.9, β2=0.98) |
-| Scheduler | Linear warmup (10 ep) + CosineAnnealingLR |
-| Early stopping patience | 5 |
+## Hyperparameters
+
+| Parameter            | Value                                    |
+|----------------------|------------------------------------------|
+| Hidden size          | 50                                       |
+| Attention heads      | 1                                        |
+| Transformer blocks   | 2                                        |
+| Max sequence length  | 200                                      |
+| Dropout              | 0.2                                      |
+| Batch size           | 512                                      |
+| Learning rate        | 0.001                                    |
+| Optimizer            | Adam (β1=0.9, β2=0.98)                   |
+| Scheduler            | Linear warmup (10 ep) + CosineAnnealingLR|
+| Early stopping       | patience=5, monitored on val NDCG@10     |
 
 To try a different config, change the `SASRec(...)` call in `train.py`:
 
 ```python
-model = SASRec(num_items=data["num_items"], hidden_size=100, head_nums=2, block_nums=2, maxlen=MAX_LENGTH dropout_rate=0.2)
+model = SASRec(num_items=data["num_items"], hidden_size=100, head_nums=2, block_nums=2, maxlen=MAX_LENGTH, dropout_rate=0.2)
 ```
+---
+
+## Results
+
+Full ranking evaluation — target item ranked against all 3,533 items.
+All configs use dropout=0.2, maxlen=200 unless noted.
+
+| Config           | Blocks | Hidden | Heads | Maxlen | NDCG@10 | NDCG@20 | Recall@10 | Recall@20 |
+|------------------|--------|--------|-------|--------|---------|---------|-----------|-----------|
+| A — 1 block      | 1      | 50     | 1     | 200    | 0.0475  | 0.0710  | 0.1148    | 0.2082    |
+| B — default      | 2      | 50     | 1     | 200    | 0.0502  | 0.0729  | 0.1172    | 0.2085    |
+| C — 3 blocks     | 3      | 50     | 1     | 200    | 0.0537  | 0.0797  | 0.1251    | 0.2282    |
+| D — best         | 2      | 100    | 2     | 200    | 0.0591  | 0.0841  | 0.1455    | 0.2453    |
+| E — short seq    | 2      | 50     | 1     | 50     | 0.0513  | 0.0757  | 0.1215    | 0.2181    |
+
+---
 ## Reference
 Wang-Cheng Kang, Julian McAuley. *Self-Attentive Sequential Recommendation*. ICDM 2018.
 Official repo: [github.com/kang205/SASRec](https://github.com/kang205/SASRec)
